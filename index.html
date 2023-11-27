@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Query Interface</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        strong {
+            color: #333;
+        }
+
+        hr {
+            margin: 10px 0;
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Log Query Interface</h1>
+
+    <form action="/query" method="post">
+        <label for="level">Level:</label>
+        <input type="text" id="level" name="level">
+
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message">
+
+        <label for="resourceId">Resource ID:</label>
+        <input type="text" id="resourceId" name="resourceId">
+
+        <label for="startTimestamp">Start Timestamp:</label>
+        <input type="text" id="startTimestamp" name="startTimestamp" placeholder="YYYY-MM-DDTHH:mm:ss.SSS">
+
+        <label for="endTimestamp">End Timestamp:</label>
+        <input type="text" id="endTimestamp" name="endTimestamp" placeholder="YYYY-MM-DDTHH:mm:ss.SSS">
+
+        <label for="traceId">Trace ID:</label>
+        <input type="text" id="traceId" name="traceId">
+
+        <label for="spanId">Span ID:</label>
+        <input type="text" id="spanId" name="spanId">
+
+        <label for="commit">Commit:</label>
+        <input type="text" id="commit" name="commit">
+
+        <label for="metadata.parentResourceId">metadata.parentResourceId:</label>
+        <input type="text" id="metadata.parentResourceId" name="metadata.parentResourceId">
+
+        <button type="submit">Query Logs</button>
+    </form>
+
+    {% if logs %}
+        <h2>Query Result:</h2>
+        <ul>
+            {% for log in logs %}
+                <li>
+                    {% for key, value in log.items() %}
+                        <strong>{{ key }}:</strong> {{ value }}<br>
+                    {% endfor %}
+                    <hr>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
+
